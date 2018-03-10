@@ -1,8 +1,11 @@
-/*
+.todo-list.filter-active li.completed {
+	display: none;
+}
 
-app-template.css overrides
+.todo-list.filter-completed li {
+	display: none;
+}
 
-remove this comment if used
-remove this file if not
-
-*/
+.todo-list.filter-completed .completed {
+	display: list-item;
+}
