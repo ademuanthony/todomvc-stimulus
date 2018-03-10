@@ -1,22 +1,23 @@
 application.register('todo', class extends Stimulus.Controller {
 	static get targets() {
-		return [ 'label', 'input' ]
+		return [ 'toggle', 'label', 'input' ]
 	}
 
 	connect() {
 		this.labelTarget.textContent = this.element.dataset.value;
-		if (this.element.dataset.completed) {
+		if (this.element.hasAttribute('data-completed')) {
 			this.element.classList.add('completed');
+			this.toggleTarget.checked = true;
 		}
 	}
 
 	toggle() {
-		if (this.element.hasAttribute('data-completed')) {
-			this.element.removeAttribute('data-completed');
-			this.element.classList.remove('completed');
-		} else {
+		if (event.target.checked) {
 			this.element.setAttribute('data-completed', '');
 			this.element.classList.add('completed');
+		} else {
+			this.element.removeAttribute('data-completed');
+			this.element.classList.remove('completed');
 		}
 		this.change();
 	}

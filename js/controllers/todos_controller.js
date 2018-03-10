@@ -1,10 +1,38 @@
 application.register('todos', class extends Stimulus.Controller {
 	static get targets() {
-		return [ 'newTodo', 'todoList', 'todoTemplate', 'filterAllButton', 'filterActiveButton', 'filterCompletedButton', 'counter', 'footer', 'clearCompletedButton']
+		return [ 'newTodo', 'todoList', 'todoTemplate', 'filterAllButton', 'filterActiveButton', 'filterCompletedButton', 'counter', 'footer', 'clearCompletedButton', 'toggleAll']
 	}
 
 	connect() {
+		this.load();
 		this.updateFooter();
+	}
+
+	save() {
+		var data = [];
+		this.todoListTarget.querySelectorAll('li').forEach(function(li) {
+			data.push({title: li.dataset.value, completed: li.hasAttribute('data-completed')})
+		})
+		localStorage.setItem('todos-stimulus', JSON.stringify(data));
+	}
+
+	load() {
+		var data = JSON.parse(localStorage.getItem('todos-stimulus'));
+		if (data) {
+			var _this = this;
+			data.forEach(function(todo) {
+				_this.appendTodo(todo.title, todo.completed)
+			})
+		}
+	}
+
+	appendTodo(title, completed) {
+		var todo = document.importNode(this.todoTemplateTarget.content, true);
+		todo.querySelector('li').dataset.value = title
+		if (completed) {
+			todo.querySelector('li').setAttribute('data-completed', '')
+		}
+		this.todoListTarget.appendChild(todo);
 	}
 
 	updateFooter() {
@@ -37,19 +65,33 @@ application.register('todos', class extends Stimulus.Controller {
 		}
 	}
 
-	appendTodo(event) {
+	createTodo(event) {
 		event.preventDefault();
 
-		var value = this.newTodoTarget.value;
-		this.newTodoTarget.value = '';
-		var todo = document.importNode(this.todoTemplateTarget.content, true);
-		todo.querySelector('li').dataset.value = value
-		this.todoListTarget.appendChild(todo);
-		this.updateFooter();
+		if (this.newTodoTarget.value != '') {
+			this.appendTodo(this.newTodoTarget.value, false);
+			this.newTodoTarget.value = '';
+			this.todoChange();
+		}
 	}
 
 	todoChange(event) {
 		this.updateFooter();
+		this.save();
+	}
+
+	toggleAll() {
+		if (this.toggleAllTarget.checked) {
+			this.todoListTarget.querySelectorAll('[data-action="todo#toggle"]:not(:checked)').forEach(function(toggle) {
+				toggle.checked = true;
+				toggle.dispatchEvent(new Event('change'));
+			})
+		} else {
+			this.todoListTarget.querySelectorAll('[data-action="todo#toggle"]').forEach(function(toggle) {
+				toggle.checked = false;
+				toggle.dispatchEvent(new Event('change'));
+			})
+		}
 	}
 
 	filterAll() {
@@ -79,5 +121,6 @@ application.register('todos', class extends Stimulus.Controller {
 		this.todoListTarget.querySelectorAll('li[data-completed]').forEach(function(li) {
 			li.parentNode.removeChild(li);
 		})
+		this.todoChange();
 	}
 })
