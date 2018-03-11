@@ -7,14 +7,7 @@ application.register('todos', class extends Stimulus.Controller {
 		this.load();
 		this.filter();
 		this.updateLayout();
-		this.connectFilter();
-	}
-
-	connectFilter() {
-		var _this = this
-		window.onhashchange = function() {
-			_this.filter();
-		}
+		window.addEventListener('hashchange', this.filter.bind(this));
 	}
 
 	save() {
