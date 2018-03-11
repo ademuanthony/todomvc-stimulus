@@ -95,8 +95,8 @@ application.register('todos', class extends Stimulus.Controller {
 		this.save();
 	}
 
-	toggleAll() {
-		if (this.toggleAllTarget.checked) {
+	toggleAll(event) {
+		if (event.target.checked) {
 			this.todoListTarget.querySelectorAll('[data-action="todo#toggle"]:not(:checked)').forEach(function(toggle) {
 				toggle.checked = true;
 				toggle.dispatchEvent(new Event('change'));
