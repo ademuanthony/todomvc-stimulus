@@ -1,19 +1,19 @@
-# TodoMVC App Template
+# Framework Name • [TodoMVC](http://todomvc.com)
 
-> Template used for creating [TodoMVC](http://todomvc.com) apps
+> Stimulus is a JavaScript framework with modest ambitions. It doesn't seek to take over your entire front-end—in fact, it's not concerned with rendering HTML at all. Instead, it's designed to augment your HTML with just enough behavior to make it shine. Stimulus pairs beautifully with Turbolinks to provide a complete solution for fast, compelling applications with a minimal amount of effort.
 
-![](https://github.com/tastejs/todomvc-app-css/raw/master/screenshot.png)
+> _[Stimulus](https://stimulusjs.org/)_
 
+## Resources
 
-## Getting started
+- [Website](https://stimulusjs.org/)
+- [Handbook](https://stimulusjs.org/handbook/introduction)
+- [Source Code](https://github.com/stimulusjs/stimulus)
 
-- Read the [Application Specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) before touching the template.
+### Articles
 
-- Delete this file and rename `app-readme.md` to `readme.md` and fill it out.
+- [The Origin of Stimulus](https://stimulusjs.org/handbook/introduction)
 
-- Clone this repo and install the dependencies with [npm](https://npmjs.com) by running: `npm install`.
+### Support
 
-
-## License
-
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" rel="dct:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://sindresorhus.com" property="cc:attributionName" rel="cc:attributionURL">TasteJS</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US">Creative Commons Attribution 4.0 International License</a>.
+- [Discourse](https://discourse.stimulusjs.org/)
