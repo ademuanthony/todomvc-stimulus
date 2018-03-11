@@ -5,8 +5,16 @@ application.register('todos', class extends Stimulus.Controller {
 
 	connect() {
 		this.load();
-		this.updateMain();
-		this.updateFooter();
+		this.filter();
+		this.updateLayout();
+		this.connectFilter();
+	}
+
+	connectFilter() {
+		var _this = this
+		window.onhashchange = function() {
+			_this.filter();
+		}
 	}
 
 	save() {
@@ -34,6 +42,11 @@ application.register('todos', class extends Stimulus.Controller {
 			todo.querySelector('li').setAttribute('data-completed', '')
 		}
 		this.todoListTarget.appendChild(todo);
+	}
+
+	updateLayout() {
+		this.updateMain();
+		this.updateFooter();
 	}
 
 	updateMain() {
@@ -85,8 +98,7 @@ application.register('todos', class extends Stimulus.Controller {
 	}
 
 	todoChange(event) {
-		this.updateMain();
-		this.updateFooter();
+		this.updateLayout();
 		this.save();
 	}
 
@@ -104,27 +116,44 @@ application.register('todos', class extends Stimulus.Controller {
 		}
 	}
 
+	filter() {
+		switch (window.location.hash) {
+			case '#/active':
+				this.filterActive();
+				break;
+			case '#/completed':
+				this.filterCompleted();
+				break;
+			default:
+				this.filterAll();
+		}
+	}
+
 	filterAll() {
 		this.todoListTarget.classList.remove('filter-active', 'filter-completed');
-		this.filterAllButtonTarget.classList.add('selected');
-		this.filterActiveButtonTarget.classList.remove('selected');
-		this.filterCompletedButtonTarget.classList.remove('selected');
+		this.updateFilterNavs('#/');
 	}
 
 	filterActive() {
 		this.todoListTarget.classList.add('filter-active');
 		this.todoListTarget.classList.remove('filter-completed');
-		this.filterAllButtonTarget.classList.remove('selected');
-		this.filterActiveButtonTarget.classList.add('selected');
-		this.filterCompletedButtonTarget.classList.remove('selected');
+		this.updateFilterNavs('#/active');
 	}
 
 	filterCompleted() {
 		this.todoListTarget.classList.add('filter-completed');
 		this.todoListTarget.classList.remove('filter-active');
-		this.filterAllButtonTarget.classList.remove('selected');
-		this.filterActiveButtonTarget.classList.remove('selected');
-		this.filterCompletedButtonTarget.classList.add('selected');
+		this.updateFilterNavs('#/completed');
+	}
+
+	updateFilterNavs(hash) {
+		this.footerTarget.querySelectorAll('.filters a').forEach(function(a) {
+			if (a.getAttribute('href') == hash) {
+				a.classList.add('selected');
+			} else {
+				a.classList.remove('selected');
+			}
+		})
 	}
 
 	clearCompleted() {

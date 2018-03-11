@@ -36,16 +36,15 @@
 			</section>
 			<footer class="footer hidden" data-target="todos.footer">
 				<span class="todo-count" data-target="todos.counter"></span>
-				<!-- Remove this if you don't implement routing -->
 				<ul class="filters">
 					<li>
-						<a data-action="todos#filterAll" data-target="todos.filterAllButton" class="selected" href="#/">All</a>
+						<a href="#/">All</a>
 					</li>
 					<li>
-						<a data-action="todos#filterActive" data-target="todos.filterActiveButton" href="#/active">Active</a>
+						<a href="#/active">Active</a>
 					</li>
 					<li>
-						<a data-action="todos#filterCompleted" data-target="todos.filterCompletedButton" href="#/completed">Completed</a>
+						<a href="#/completed">Completed</a>
 					</li>
 				</ul>
 				<button data-action="todos#clearCompleted" data-target="todos.clearCompletedButton" class="clear-completed">Clear completed</button>
