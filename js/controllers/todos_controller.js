@@ -1,6 +1,6 @@
 application.register('todos', class extends Stimulus.Controller {
 	static get targets() {
-		return [ 'newTodo', 'todoList', 'todoTemplate', 'filterAllButton', 'filterActiveButton', 'filterCompletedButton', 'counter', 'main', 'footer', 'clearCompletedButton', 'toggleAll']
+		return [ 'newTodo', 'todoList', 'todoTemplate', 'main', 'footer', 'counter', 'clearCompletedButton']
 	}
 
 	connect() {
