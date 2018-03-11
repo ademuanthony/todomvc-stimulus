@@ -1,10 +1,11 @@
 application.register('todos', class extends Stimulus.Controller {
 	static get targets() {
-		return [ 'newTodo', 'todoList', 'todoTemplate', 'filterAllButton', 'filterActiveButton', 'filterCompletedButton', 'counter', 'footer', 'clearCompletedButton', 'toggleAll']
+		return [ 'newTodo', 'todoList', 'todoTemplate', 'filterAllButton', 'filterActiveButton', 'filterCompletedButton', 'counter', 'main', 'footer', 'clearCompletedButton', 'toggleAll']
 	}
 
 	connect() {
 		this.load();
+		this.updateMain();
 		this.updateFooter();
 	}
 
@@ -33,6 +34,14 @@ application.register('todos', class extends Stimulus.Controller {
 			todo.querySelector('li').setAttribute('data-completed', '')
 		}
 		this.todoListTarget.appendChild(todo);
+	}
+
+	updateMain() {
+		if (this.todoListTarget.querySelectorAll('li').length) {
+			this.mainTarget.classList.remove('hidden');
+		} else {
+			this.mainTarget.classList.add('hidden');
+		}
 	}
 
 	updateFooter() {
@@ -76,6 +85,7 @@ application.register('todos', class extends Stimulus.Controller {
 	}
 
 	todoChange(event) {
+		this.updateMain();
 		this.updateFooter();
 		this.save();
 	}
