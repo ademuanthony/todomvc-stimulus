@@ -130,19 +130,29 @@ application.register('todos', class extends Stimulus.Controller {
 	}
 
 	filterAll() {
-		this.todoListTarget.classList.remove('filter-active', 'filter-completed');
+		this.todoListTarget.querySelectorAll('li').forEach(function(li) {
+			li.classList.remove('hidden');
+		})
 		this.updateFilterNavs('#/');
 	}
 
 	filterActive() {
-		this.todoListTarget.classList.add('filter-active');
-		this.todoListTarget.classList.remove('filter-completed');
+		this.todoListTarget.querySelectorAll('li[data-completed]').forEach(function(li) {
+			li.classList.add('hidden');
+		})
+		this.todoListTarget.querySelectorAll('li:not([data-completed])').forEach(function(li) {
+			li.classList.remove('hidden');
+		})
 		this.updateFilterNavs('#/active');
 	}
 
 	filterCompleted() {
-		this.todoListTarget.classList.add('filter-completed');
-		this.todoListTarget.classList.remove('filter-active');
+		this.todoListTarget.querySelectorAll('li[data-completed]').forEach(function(li) {
+			li.classList.remove('hidden');
+		})
+		this.todoListTarget.querySelectorAll('li:not([data-completed])').forEach(function(li) {
+			li.classList.add('hidden');
+		})
 		this.updateFilterNavs('#/completed');
 	}
 
