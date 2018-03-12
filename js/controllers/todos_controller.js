@@ -91,6 +91,7 @@ application.register('todos', class extends Stimulus.Controller {
 	}
 
 	todoChange() {
+		this.filter();
 		this.updateLayout();
 		this.save();
 	}
