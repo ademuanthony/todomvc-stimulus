@@ -11,7 +11,7 @@ application.register('todo', class extends Stimulus.Controller {
 		}
 	}
 
-	toggle() {
+	toggle(event) {
 		if (event.target.checked) {
 			this.element.setAttribute('data-completed', '');
 			this.element.classList.add('completed');

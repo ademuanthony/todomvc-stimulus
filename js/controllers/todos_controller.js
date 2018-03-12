@@ -90,7 +90,7 @@ application.register('todos', class extends Stimulus.Controller {
 		}
 	}
 
-	todoChange(event) {
+	todoChange() {
 		this.updateLayout();
 		this.save();
 	}
